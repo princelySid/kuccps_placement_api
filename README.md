@@ -1,4 +1,4 @@
-#Kenya University and Colleges Placements API.
+# Kenya University and Colleges Placements API.
 As a continuation into my exporation of data that can be found on my website [sidneyochieng.co.ke](http://sidneyochieng.co.ke/)in the Kenyan education system I pulled data from the Kenya University and Colleges Central Placements Service(KUCCPS).
 
 KUCCPS is tasked with determining which university and course students are placed in based on a number called a cutoff point(a combination of overall grade, subjects chosen and how well you performed in those subjects). Placement by KUCCPS means that you enter as a government sponsored student which means heavily subsidised by the government.
