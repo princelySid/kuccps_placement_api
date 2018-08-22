@@ -1,20 +1,26 @@
 from math import sqrt
 
 
-class Base_Class(object):
-    """docstring for ClassName"""
+class BaseClass(object):
+    '''
+    docstring for ClassName
+    '''
     def __init__(self, num_subjects):
         self.group1 = {}
         self.group2 = {}
         self.group3 = {}
         self.group4 = {}
         self.group5 = {}
+        if num_subjects < 7 or num_subjects > 9:
+            raise ValueError('Can not have less than 7 subjects or more than 9')
         self.num_subjects = num_subjects
+        self.subjects_left = num_subjects
 
     def get_weighted_cp(self, raw_cp, aggregate_cp):
         rcp = raw_cp / 48
         acp = aggregate_cp / 84
         wcp = sqrt(rcp * acp) * 48
+        wcp = round(wcp, 4)
         return wcp
 
     def get_raw_cp(self, raw_cp):
@@ -49,6 +55,7 @@ class Base_Class(object):
         return raw_cpoint
 
     def select_group2(self, selection):
+        selection = selection.replace(' ', '')
         selection = selection.split(',')
         selection = list(set(selection))
         subjects = []
@@ -64,6 +71,7 @@ class Base_Class(object):
         return subjects
 
     def select_group3(self, selection):
+        selection = selection.replace(' ', '')
         selection = selection.split(',')
         selection = list(set(selection))
         subjects = []
@@ -81,6 +89,7 @@ class Base_Class(object):
         return subjects
 
     def select_group4(self, selection):
+        selection = selection.replace(' ', '')
         selection = selection.split(',')
         selection = list(set(selection))
         subjects = []
@@ -110,6 +119,7 @@ class Base_Class(object):
         return subjects
 
     def select_group5(self, selection):
+        selection = selection.replace(' ', '')
         selection = selection.split(',')
         selection = list(set(selection))
         subjects = []
@@ -129,40 +139,23 @@ class Base_Class(object):
         return subjects
 
     def get_g1_grades(self):
-        eng = input('Enter your English grade: ')
-        eng = eng.upper()
-        kis = input('Enter your Kiswahili grade: ')
-        kis = kis.upper()
-        math = input('Enter your Mathematics grade: ')
-        math = math.upper()
-
-        print('You got {} in Engish, {} in Kiswahili and {} in Mathematics'.
-              format(eng, kis, math))
-        print('Is this correct?')
-        yes_no = input()
-        if yes_no == 'N':
-            self.get_g1_grades()
-
         self.group1['English'] = self.get_raw_cp(eng)
         self.group1['Kiswahili'] = self.get_raw_cp(kis)
         self.group1['Mathematics'] = self.get_raw_cp(math)
         subjects_left = int(self.num_subjects) - 3
         self.get_g2_grades(subjects_left)
 
-    def get_g2_grades(self, subjects_left):
-        print('Select your Group 2 subjects:\n'
-              '1 Biology\n'
-              '2 Chemistry\n'
-              '3 Physics\n'
-              '4 General Science\n')
-        g2_subjects = input()
-        g2_subjects = self.select_group2(g2_subjects)
+    def get_g2_grades(self, selection, subjects_left):
+        '''
+
+        '''
+        g2_subjects = self.select_group2(selection)
         if len(g2_subjects) < 2 or len(g2_subjects) > 3:
             print('You must select 2-3 subjects from this group\n')
             self.get_g2_grades(subjects_left)
 
-        print('You selected: {}. Is this correct?'.
-              format(', '.join(g2_subjects)))
+        print('You selected: {}. Is this correct?'.format(
+            ', '.join(g2_subjects)))
         yes_no = input()
         if yes_no == 'N':
             self.get_g2_grades(subjects_left)
@@ -200,8 +193,8 @@ class Base_Class(object):
                   format(subjects_left))
             self.get_g3_grades(subjects_left)
 
-        print('You selected: {}. Is this correct?'.
-              format(', '.join(g3_subjects)))
+        print('You selected: {}. Is this correct?'.format(
+            ', '.join(g3_subjects)))
         yes_no = input()
         if yes_no == 'N':
             self.get_g3_grades(subjects_left)
@@ -262,8 +255,8 @@ class Base_Class(object):
                   format(subjects_left))
             self.get_g4_grades(subjects_left)
 
-        print('You selected: {}. Is this correct?'.
-              format(', '.join(g4_subjects)))
+        print('You selected: {}. Is this correct?'.format(
+            ', '.join(g4_subjects)))
         yes_no = input()
         if yes_no == 'N':
             self.get_g4_grades(subjects_left)
@@ -302,8 +295,8 @@ class Base_Class(object):
                   format(subjects_left))
             self.get_g5_grades(subjects_left)
 
-        print('You selected: {}. Is this correct?'.
-              format(', '.join(g5_subjects)))
+        print('You selected: {}. Is this correct?'.format(
+            ', '.join(g5_subjects)))
         yes_no = input()
         if yes_no == 'N':
             self.get_g5_grades(subjects_left)
@@ -1088,9 +1081,8 @@ class Base_Class(object):
             return
 
         subject2 = math
-        
-        subject3 = group2.pop()
 
+        subject3 = group2.pop()
 
         combined = group2 + group3
 
@@ -1252,28 +1244,3 @@ class Base_Class(object):
         score = subject1 + subject2 + subject3 + subject4
 
         return score
-
-
-test = Base_Class(7)
-test.get_g1_grades()
-print('1 {}'.format(test.cluster1()))
-print('2 {}'.format(test.cluster2()))
-print('3 {}'.format(test.cluster3()))
-print('4 {}'.format(test.cluster4()))
-print('5 {}'.format(test.cluster5()))
-print('6 {}'.format(test.cluster6()))
-print('7 {}'.format(test.cluster7()))
-print('8 {}'.format(test.cluster8()))
-print('9 {}'.format(test.cluster9()))
-print('10 {}'.format(test.cluster10()))
-print('11 {}'.format(test.cluster11()))
-print('12 {}'.format(test.cluster12()))
-print('13 {}'.format(test.cluster13()))
-print('14 {}'.format(test.cluster14()))
-print('15 {}'.format(test.cluster15()))
-print('16 {}'.format(test.cluster16()))
-print('17 {}'.format(test.cluster17()))
-print('18 {}'.format(test.cluster18()))
-print('19 {}'.format(test.cluster19()))
-print('20 {}'.format(test.cluster10()))
-print('21 {}'.format(test.cluster21()))
